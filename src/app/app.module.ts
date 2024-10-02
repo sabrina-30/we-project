@@ -10,12 +10,12 @@ import { FilterPokemonPipePipe } from './filter-pokemon--pipe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
+    MyComponentComponent,
     FilterPokemonPipePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MyComponentComponent,
     FormsModule
   ],
   providers: [],

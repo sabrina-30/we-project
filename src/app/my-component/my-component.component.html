@@ -2,22 +2,26 @@
     l'id saisi est : {{id}}
 </div>
 
-<input [(ngModel)]="id">
+<input [(ngModel)]="id" placeholder="id">
 <br><br>
 
-<input [(ngModel)]="stringSearch">
+<input [(ngModel)]="id" readonly placeholder="id readonly">
 <br><br>
 
-<input [(ngModel)]="id" readonly>
+<input [(ngModel)]="stringSearch" placeholder="search">
+<br><br>
+
 
 <select [(ngModel)] = "selectedPokemon"  >
-    <option *ngFor="let pokemon of pokemons" [value]="pokemon.nom">{{pokemon.nom}}</option>
+    <option *ngFor="let pokemon of pokemons | filterPokemonPipe:'nom':stringSearch" [value]="pokemon.nom">{{pokemon.nom}}</option>
 </select>
 
 <div>
-    le pokemoj  est : {{selectedPokemon}}
+    le pokemon  est : {{selectedPokemon}}
 </div>
 
-<div>
-    {{pokemons id stringSearch | FilterPokemonPipePipe  }}
-</div>
+
+
+<br>
+
+<button onclick="go()">Go !</button>

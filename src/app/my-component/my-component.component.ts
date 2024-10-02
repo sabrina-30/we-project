@@ -15,4 +15,8 @@ export class MyComponentComponent {
 
   selectedPokemon : string = '';
 
+  go():void{
+    console.log("id ",this.id," nom ",this.stringSearch)
+  }
+
 }
