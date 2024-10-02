@@ -1,0 +1,23 @@
+<div>
+    l'id saisi est : {{id}}
+</div>
+
+<input [(ngModel)]="id">
+<br><br>
+
+<input [(ngModel)]="stringSearch">
+<br><br>
+
+<input [(ngModel)]="id" readonly>
+
+<select [(ngModel)] = "selectedPokemon"  >
+    <option *ngFor="let pokemon of pokemons" [value]="pokemon.nom">{{pokemon.nom}}</option>
+</select>
+
+<div>
+    le pokemoj  est : {{selectedPokemon}}
+</div>
+
+<div>
+    {{pokemons id stringSearch | FilterPokemonPipePipe  }}
+</div>
