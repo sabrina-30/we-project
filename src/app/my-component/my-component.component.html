@@ -5,15 +5,13 @@
 <input [(ngModel)]="id" placeholder="id">
 <br><br>
 
-<input [(ngModel)]="id" readonly placeholder="id readonly">
-<br><br>
 
 <input [(ngModel)]="stringSearch" placeholder="search">
 <br><br>
 
 
 <select [(ngModel)] = "selectedPokemon"  >
-    <option *ngFor="let pokemon of pokemons | filterPokemonPipe:'nom':stringSearch" [value]="pokemon.nom">{{pokemon.nom}}</option>
+    <option *ngFor="let pokemon of pokemonsResult | filterPokemonPipe:'name':stringSearch" [value]="pokemon.name">{{pokemon.name}}</option>
 </select>
 
 <div>
@@ -24,4 +22,6 @@
 
 <br>
 
-<button onclick="go()">Go !</button>
+<button (click)="get()">Get !</button>
+
+<app-info-pokemon [id]="id" [name]="name" [stats]="stats"></app-info-pokemon>
