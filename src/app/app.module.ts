@@ -20,7 +20,6 @@ import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     HttpClientModule
   ],

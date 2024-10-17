@@ -1,20 +1,31 @@
-<div>
+<div *ngIf="id">
     l'id saisi est : {{id}}
 </div>
 
 <input [(ngModel)]="id" placeholder="id">
 <br><br>
 
+<div class="row">
+    <div class="col-2">
+        <input [(ngModel)]="stringSearch" placeholder="search">
+    </div>
+    <div class="col-2">
+        <select [(ngModel)] = "selectedPokemon"  >
+            <option value="">Choisis un Pokemon</option>
+            <option *ngFor="let pokemon of pokemonsResult | filterPokemonPipe:'name':stringSearch" [value]="pokemon.name">{{pokemon.name}}</option>
+        </select>
+    </div>
+    <div class="col-1">
+        <button (click)="get()">Get !</button>
+    </div>
+</div>
 
-<input [(ngModel)]="stringSearch" placeholder="search">
 <br><br>
 
 
-<select [(ngModel)] = "selectedPokemon"  >
-    <option *ngFor="let pokemon of pokemonsResult | filterPokemonPipe:'name':stringSearch" [value]="pokemon.name">{{pokemon.name}}</option>
-</select>
 
-<div>
+
+<div *ngIf="selectedPokemon">
     le pokemon  est : {{selectedPokemon}}
 </div>
 
@@ -22,6 +33,6 @@
 
 <br>
 
-<button (click)="get()">Get !</button>
 
-<app-info-pokemon [id]="id" [name]="name" [stats]="stats"></app-info-pokemon>
+
+<app-info-pokemon [id]="researchedId" [name]="name" [stats]="stats" [image]="image"></app-info-pokemon>

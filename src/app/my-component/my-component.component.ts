@@ -40,6 +40,8 @@ export class MyComponentComponent implements OnInit{
 
   stats : string[] = [];
   name : string = '';
+  researchedId:string = '';
+  image:string = '';
 
 
   get(){
@@ -53,6 +55,8 @@ export class MyComponentComponent implements OnInit{
             this.stats.push(res.stat.name);
           });
           this.name = data.name;
+          this.researchedId = this.id;
+          this.image = data.sprites.front_default;
         }
       }
     )

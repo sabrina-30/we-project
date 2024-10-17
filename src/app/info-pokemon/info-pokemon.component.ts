@@ -16,4 +16,7 @@ export class InfoPokemonComponent {
   @Input()
   stats:string[] = [];
 
+  @Input()
+  image:string = '';
+
 }
