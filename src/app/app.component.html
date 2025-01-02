@@ -1,7 +1,8 @@
-<div style="text-align:center">
-  <h1>
-   {{ title }}!
-  </h1>
-</div>
+<app-header (showHome)="show($event)"  (id)="getId($event)"></app-header>
+<app-my-component *ngIf="showHome" [favorites]="favorites" 
+                (addId)="addId($event)"
+                (retreiveId)="retrieveId($event)"></app-my-component>
 
-<app-my-component></app-my-component>
+<app-favorites *ngIf="!showHome" [favorites]="favorites"
+                (addId)="addId($event)"
+                (retreiveId)="retrieveId($event)"></app-favorites>

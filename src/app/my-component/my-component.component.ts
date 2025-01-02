@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Pokemon } from '../pokemon';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
 import { PokemonResult } from '../pokemon-result';
+import { PokemonDto } from '../pokemonDto';
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
@@ -9,57 +9,70 @@ import { PokemonResult } from '../pokemon-result';
 })
 export class MyComponentComponent implements OnInit{
 
+  @Input()
+  favorites:number[]=[];
+
+
+  @Output()
+  retreiveId=new EventEmitter<number>();
+
+  @Output()
+  addId=new EventEmitter<number>();
+
   constructor(private httpService:HttpServiceService){}
 
+  data:PokemonDto[]=[]
+
   ngOnInit(): void {
-    this.httpService.getPokemons().subscribe(
+    this.getData('');
+    this.httpService.getValue().subscribe({
+      next:(val) =>{
+        this.data = [];
+        if(val != '') {
+          this.httpService.getPokemon(val).subscribe(
+            {
+              next: ( pok)  => {
+              this.data.push(new PokemonDto(pok.id, pok.name,pok.sprites.front_default,pok.height,pok.weight));
+                
+              }
+            }
+          )
+        }else{
+          this.getData('');
+        }
+
+      }
+    })
+    
+  }
+
+  getData(id:string){
+    this.data = [];
+    this.httpService.getPokemon(id).subscribe(
       {
         next: ( data)  => {
-          console.log(" data  " , data.pokemon_entries);
-          data.pokemon_entries.forEach((res : any )=> {
-            const name = res.pokemon_species.name;
-            const url = res.pokemon_species.url;
-        
-            this.pokemonsResult.push(new PokemonResult(name, url));
-          });
-          
+          let results:PokemonResult[] = data.results;
+          results.map(e=>{
+            this.httpService.getPokemonInfos(e.url).subscribe(
+              {
+                next: ( pok)  => {
+                  let tmp = new PokemonDto(pok.id, pok.name,pok.sprites.front_default,pok.height,pok.weight);
+                  this.data.push(tmp);
+                }
+              }
+            )
+          })
         }
       }
     )
   }
 
-  id: string = '';
+  addToFavorite(id:number){
+    this.addId.emit(id);
+  }
 
-  stringSearch: string = '';
-
-  pokemons : Pokemon[] = [{id:1,nom:'nom'},{id:2,nom:'nom2'},{id:3,nom:'nom3'},{id:4,nom:'nom4'},{id:5,nom:'nom5'}]
-
-  selectedPokemon : string = '';
-
-  pokemonsResult : PokemonResult[] = [ ];
-
-  stats : string[] = [];
-  name : string = '';
-  researchedId:string = '';
-  image:string = '';
-
-
-  get(){
-    console.log("id ",this.id," nom ",this.stringSearch)
-    this.stats = []
-    this.httpService.getPokemon(this.id).subscribe(
-      {
-        next: ( data)  => {
-          console.log(" data  " , data);
-          data.stats.forEach((res : any )=> {
-            this.stats.push(res.stat.name);
-          });
-          this.name = data.name;
-          this.researchedId = this.id;
-          this.image = data.sprites.front_default;
-        }
-      }
-    )
+  retrieveFromFavorite(id:number){
+    this.retreiveId.emit(id);
   }
 
 }

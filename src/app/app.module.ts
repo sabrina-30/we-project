@@ -10,13 +10,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HttpClientModule } from '@angular/common/http';
 import { HttpServiceService } from './http-service.service';
 import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
+import { HeaderComponent } from './header/header.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyComponentComponent,
     FilterPokemonPipePipe,
-    InfoPokemonComponent
+    InfoPokemonComponent,
+    HeaderComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

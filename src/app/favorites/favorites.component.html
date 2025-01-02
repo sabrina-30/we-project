@@ -1,10 +1,10 @@
-<div *ngIf="data.length == 0">
+<div *ngIf="favorites.length == 0">
     <div class="alert alert-info" role="alert">
         Nothing to show !
       </div>
 </div>
-<div class="row" *ngIf="data.length > 0">
-    <h4 class="text-center my-3v">Pokemons list: </h4>
+<div class="row" *ngIf="favorites.length > 0">
+    <h4 class="text-center my-3v">Favorites pokemons list: </h4>
     <div class="col-3 my-3v" *ngFor="let pokemon of data">
         <div class="card">
             <img class="card-img-top" [src]="pokemon.image" [alt]="pokemon.nom">
@@ -13,9 +13,6 @@
                 <p class="card-text">Height: {{pokemon.height}}</p>
                 <p class="card-text">Weight: {{pokemon.weight}}</p>
                 <div class="text-end">
-                    <button class="btn btn-dark" (click)="addToFavorite(pokemon.id)" *ngIf="!favorites.includes(pokemon.id)">
-                        <i class="fa fa-heart"></i> Add to Favorites
-                    </button>
                     <button class="btn btn-dark" (click)="retrieveFromFavorite(pokemon.id)" *ngIf="favorites.includes(pokemon.id)">
                         <i class="fa fa-trash"></i> Remove from Favorites
                     </button>
